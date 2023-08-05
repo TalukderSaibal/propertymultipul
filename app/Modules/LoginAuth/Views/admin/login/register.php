@@ -1,42 +1,43 @@
+
 <?php
-    echo $this->include('\Modules\Master\Views\header_login'); 
+    echo $this->include('\Modules\Master\Views\header_login');
     $theme = session()->get('themevalue');
- ?>
+?>
         <div class="loginpage">
             <div class="container-fluid p-0">
                 <div class="row g-0">
-                    <div class="col-md-6"> 
+                    <div class="col-md-6">
                         <div class="row justify-content-center align-items-center <?php if (isset($theme) && ($theme == 1)) { ?> bg-white <?php } else{?> bg-lightnew <?php } ?> py-5 h-100 ">
-                            <div class="col-md-8"> 
+                            <div class="col-md-8">
                                 <div class="text-center mb-4">
                                     <a href="<?php echo base_url() ?>" class="">
                                         <img src="<?php echo base_url() ?>/admin/assets/images/logo.png" alt="" height="44" class="auth-logo logo-dark mx-auto">
                                         <img src="<?php echo base_url() ?>/admin/assets/images/logo-dark.png" alt="" height="34" class="auth-logo logo-light mx-auto">
                                     </a>
                                 </div>
-                                
+
                                 <h4 class="font-size-18 text-muted text-center mt-2">Free Register</h4>
 
                                 <p class="text-muted text-center mb-4">Get your free <b>My Smart Property</b> account now.</p>
-                                <?php 
-                                if(session()->getFlashdata('success')){
-                                    echo "<h6 style='color:red;text-align:center;'>".session()->getFlashdata('success')."</h6>";
-                                }
+                                <?php
+                                    if(session()->getFlashdata('success')){
+                                        echo "<h6 style='color:red;text-align:center;'>".session()->getFlashdata('success')."</h6>";
+                                    }
                                 ?>
-                                
-                                <?php 
-                                if(session()->getFlashdata('faild')){
-                                    echo "<h6 style='color:red;text-align:center;'>".session()->getFlashdata('faild')."</h6>";
-                                }
+
+                                <?php
+                                    if(session()->getFlashdata('faild')){
+                                        echo "<h6 style='color:red;text-align:center;'>".session()->getFlashdata('faild')."</h6>";
+                                    }
                                 ?>
-                                
-                                <?php 
-                                if(session()->getFlashdata('pass_faild')){
-                                    echo "<h6 style='color:red;text-align:center;'>".session()->getFlashdata('pass_faild')."</h6>";
-                                }
+
+                                <?php
+                                    if(session()->getFlashdata('pass_faild')){
+                                        echo "<h6 style='color:red;text-align:center;'>".session()->getFlashdata('pass_faild')."</h6>";
+                                    }
                                 ?>
-                               
-                                <form class="form-horizontal" action="<?php echo base_url('/register') ?>" method="post"> 
+
+                                <form class="form-horizontal" action="<?php echo base_url('/register') ?>" method="post">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="mb-4">
@@ -51,12 +52,12 @@
                                             </div>
                                             <div class="mb-4">
                                                 <label class="form-label" for="useremail">Email</label>
-                                                <input type="email" class="form-control" id="useremail" name="useremail" placeholder="Enter email">  
-                                                
+                                                <input type="email" class="form-control" id="useremail" name="useremail" placeholder="Enter email">
+
                                                 <p style="color:red;" class="text-danger"><?php if(isset($validation)){ if($validation->hasError('useremail')) { echo $validation->getError('useremail'); }} ?></p>
                                                         <div class="invalid-feedback">
                                                         User Email is required.
-                                                        </div>      
+                                                        </div>
                                             </div>
                                             <div class="mb-4">
                                                 <label class="form-label" for="userpassword">Password</label>
@@ -78,7 +79,7 @@
                                             </div>
 
 
-                    
+
 
 
                                             <div class="form-check">
@@ -94,7 +95,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </form> 
+                                </form>
                                 <div class="mt-5 text-center">
                                     <p class=" ">Already have account ?<a href="<?=base_url();?>/login" class="fw-medium text-primary"> Login </a> </p>
                                     <p class=" ">© <script>document.write(new Date().getFullYear())</script> Property Management. Crafted with <i class="mdi mdi-heart text-danger"></i> by <b>RS Software</b></p>

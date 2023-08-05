@@ -36,10 +36,10 @@
                             <div class="poperty_image_upload">
                                 <input class="form-control--uploader" type="file" name="image" id="image-token" accept="image/*" onchange="sloadFile(event)">
                                 <label for="image-token" class="remix-icon ri-upload-cloud-fill color-white upload-inner" title="Upload photo"> <span><?php echo lang('Property.upload_img'); ?></span> </label>
-                                <img id="soutput" src="<?php echo base_url() ?>/admin/assets/images/preview.jpg" class="img-fluid" />    
+                                <img id="soutput" src="<?php echo base_url() ?>/admin/assets/images/preview.jpg" class="img-fluid" />
                             </div>
                         </div>
-                        
+
                                         <lebel style="color:red;text-align:center;" class="text-danger"><?php if (isset($validation)) {
                                             echo $validation->getError('image');
                                         } ?>
@@ -58,7 +58,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="col-md-8">
                     <div class="card">
@@ -481,10 +481,10 @@
     <script src="<?php echo base_url() ?>/admin/assets/libs/node-waves/waves.min.js"></script>
     <!-- dropzone js -->
     <script src="<?php echo base_url() ?>/admin/assets/libs/dropzone/min/dropzone.min.js"></script>
-    
+
     <!-- validation init -->
     <script src="<?php echo base_url() ?>/admin/assets/js/pages/form-validation.init.js"></script>
-    
+
     <script src="<?php echo base_url() ?>/admin/assets/js/app.js"></script>
 
     <script src="<?php echo base_url() ?>/admin/assets/js/custom.js"></script>

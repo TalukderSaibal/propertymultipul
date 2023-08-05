@@ -11,37 +11,38 @@ use Modules\LoginAuth\Models\Paymentmodel;
 
 class Admincontroller extends BaseController
 {
-     /**
+    /**
      * This method index is check user authentication who are try to login.
      * It also set user data to session and cookie.
      * After all it send package page to select a package if that user haven't any package.
      * Method - get & post.
      */
-     
-      public function index()
-    {
+    public function index(){
 
-       if ($this->request->getMethod() == 'post') { 
-        $data['theme'] = $this->request->getVar('themeselect'); 
-        $this->session->set('themevalue', $data['theme']); 
-        return view('\Modules\LoginAuth\admin\login\login', $data);
-       }
-       return view('\Modules\LoginAuth\admin\login\theme_chose');
+        if ($this->request->getMethod() == 'post') {
+            $data['theme'] = $this->request->getVar('themeselect');
+            $this->session->set('themevalue', $data['theme']);
+            return view('\Modules\LoginAuth\admin\login\login', $data);
+        }
 
+        return view('\Modules\LoginAuth\admin\login\theme_chose');
     }
-    public function login()
-    { 
+
+    public function login(){
         $user = new User();
 
         $data = [
             'request' => $this->request,
         ];
+
+
         if ($this->request->getMethod() == 'post') {
             if (!$this->validate('login')) {
                 $data['validation'] = $this->validator;
             } else {
-                $email = $this->request->getVar('email');
+                $email    = $this->request->getVar('email');
                 $password = SHA1($this->request->getVar('password'));
+
                 $getUser = $user->where(['email' => $email, 'password' => $password])->first();
 
 
@@ -49,49 +50,51 @@ class Admincontroller extends BaseController
                     $rememberkey = $this->request->getVar('password');
                     $getUser = $user->where(['email' => $email, 'rememberkey' => $rememberkey])->first();
                 }
-                
-                
+
+
                 if ($getUser) {
                     $session_data = [
-                        'userId' => $getUser['id'],
-                        'name' => $getUser['name'],
-                        'type' => $getUser['type'],
-                        'user_type' => $getUser['user_type'],
+                        'userId'     => $getUser['id'],
+                        'name'       => $getUser['name'],
+                        'type'       => $getUser['type'],
+                        'user_type'  => $getUser['user_type'],
                         'isLoggedIn' => true,
-                        'by_login' => "yes",
+                        'by_login'   => "yes",
                     ];
+
                     $this->session->set($session_data);
 
                     $this->setCookie($getUser, $user);
-                    
+
                     if($getUser['user_type']==1){
 
                         return redirect()->to(base_url('/admin/super_admin_home'));
-                        
+
                     }
-     
+
                     $builder = $this->db->table('users');
+
                     $builder->select('*');
                     $builder->join('pakage', 'users.package_id = pakage.id', 'left');
                     $builder->where('users.id', $getUser['id']);
-                    $query = $builder->get();
+
+                    $query   = $builder->get();
                     $package = $query->getResult();
-                    
+
 
                     if($getUser['package_id']==0){
 
-                   
                         return redirect()->to(base_url('/admin/select_package'));
-                        
+
                     }else{
-                       
+
                         if($getUser['user_type']==10){
                             return redirect()->to(base_url('admin/home/'.$getUser['property_id']));
                         }else{
                             return redirect()->to(base_url('/admin/account_mode'));
                         }
                     }
-                    
+
                 } else {
                     $data['error'] = "Username and Password didn't match!";
                 }
@@ -116,9 +119,9 @@ class Admincontroller extends BaseController
     /**
      * End index
      */
-    
 
-     /**
+
+    /**
      * This method superAdminHome make sure that if anu user super admin then it return to super admin page.
      * Method - get
      */
@@ -137,7 +140,7 @@ class Admincontroller extends BaseController
      * Another is "$user" a model only.
      */
     protected function setCookie($getUser, $user)
-    { 
+    {
         $remCheck = $this->request->getVar('remember');
         if ($remCheck) {
 
@@ -172,13 +175,13 @@ class Admincontroller extends BaseController
      */
     public function adminLogout()
     {
-    
+
         $remove_session=[
             'userId','name','isLoggedIn','type','rs_property_id','by_login'
         ];
         $this->session->remove($remove_session);
         $this->session->destroy();
-        
+
         return redirect()->to(base_url('/'));
     }
     /**
@@ -228,7 +231,7 @@ class Admincontroller extends BaseController
                     $source = ["{receiver_name}", "{app_name}", "{link}"];
                     $dist = [$getUser['name'], "My Smart Property", $link];
                     $emailBody = str_replace($source, $dist, $getNotification['mailbody']);
-                    
+
                     $email = $getUser['email'];
 
                     $check = rs_send_email($email, $emailSubject, $emailBody, $property_id);
@@ -301,99 +304,98 @@ class Admincontroller extends BaseController
      * Method - get & post.
      * validates - register
      */
-     public function register()
-    {
-        $user_model = new User();
-        $pakage_model= new Pakagemodel();
-        $data['packages']=$pakage_model->where('status',1)->findall();
+    public function register(){
+
+        $user_model       = new User();
+        $pakage_model     = new Pakagemodel();
+        $data['packages'] = $pakage_model->where('status',1)->findall();
 
         if ($this->request->getMethod() == 'post') {
 
             $useremail = $this->request->getVar('useremail');
 
+
             $check_email = $user_model->where('email', $useremail)->find();
-			//print_r($check_email);die();
+			// print_r($check_email);die();
             if(empty($check_email)){
 
-            
+                if ($this->validate('register')) {
 
-            if ($this->validate('register')) {
+                    $password   = $this->request->getVar('userpassword');
+                    $c_password = $this->request->getVar('confirm_pass');
+                    // if($password==$c_password){
 
-                $password = $this->request->getVar('userpassword');
-                $c_password = $this->request->getVar('confirm_pass');
-                // if($password==$c_password){
+                    $username           = $this->request->getVar('username');
+                    $useremail          = $this->request->getVar('useremail');
+                    $userpassword       = SHA1($this->request->getVar('userpassword'));
+                    $term_and_condition = $this->request->getVar('term_and_condition');
 
-                $username = $this->request->getVar('username');
-                $useremail = $this->request->getVar('useremail');
-                $userpassword = SHA1($this->request->getVar('userpassword'));
-                $term_and_condition = $this->request->getVar('term_and_condition');
-                
-                $role_model = new Rolemodel();
-                $super_admin= $role_model->where('asName','admin')->first();
+                    $role_model = new Rolemodel();
+                    $super_admin= $role_model->where('asName','admin')->first();
 
-                $data = [
-                    'email' => $this->request->getVar('useremail'),
-                    'password' => SHA1($this->request->getVar('userpassword')),
-                    'name' => $this->request->getVar('username'),
-                    'term_and_condition' => $this->request->getVar('term_and_condition'),
-					'user_type' => $super_admin['id'],
-                    'isLoggedIn' => true,
-                    
-                ];
-                
+                    $data = [
+                        'email'              => $this->request->getVar('useremail'),
+                        'password'           => SHA1($this->request->getVar('userpassword')),
+                        'name'               => $this->request->getVar('username'),
+                        'term_and_condition' => $this->request->getVar('term_and_condition'),
+                        'user_type'          => $super_admin['id'],
+                        'isLoggedIn'         => true,
 
-                $insert  = $user_model->insert($data);
-
-                $user_id = $user_model->getInsertID(); 
-                ////
-                $getUser = $user_model->where('id',$user_id)->first();
-                if ($getUser) {
-                    $session_data = [
-                        'userId' => $getUser['id'],
-                        'name' => $getUser['name'],
-                        'type' => $getUser['type'],
-                        'user_type' => $getUser['user_type'],
-                        'isLoggedIn' => true,
-                        'by_login' => "yes",
                     ];
-                    $this->session->set($session_data);
 
-                    $this->setCookie($getUser, $user_model);
+
+                    $insert  = $user_model->insert($data);
+
+                    $user_id = $user_model->getInsertID();
+                    ////
+                    $getUser = $user_model->where('id',$user_id)->first();
+                    if ($getUser) {
+                        $session_data = [
+                            'userId' => $getUser['id'],
+                            'name' => $getUser['name'],
+                            'type' => $getUser['type'],
+                            'user_type' => $getUser['user_type'],
+                            'isLoggedIn' => true,
+                            'by_login' => "yes",
+                        ];
+                        $this->session->set($session_data);
+
+                        $this->setCookie($getUser, $user_model);
+                    }
+
+
+                    $data = [
+                        'company_id' => $user_id,
+                    ];
+
+                    $update = $user_model->update($user_id,$data);
+                    $users  = $user_model->where('id',$user_id)->first();
+
+
+                    $notification= new Notificationmodel();
+
+                    $getNotification = $notification->where('id', 6)->first();
+
+                    $property_id=$this->session->get('rs_property_id');
+
+
+                    $source    = ["{receiver_name}", "{app_name}"];
+                    $dist      = [$users['name'], "My Smart Property"];
+                    $emailBody = str_replace($source, $dist, $getNotification['mailbody']);
+
+                    $email = $users['email'];
+
+                    $check = rs_send_email($email, $getNotification['mailsub'], $emailBody);
+
+                    return redirect()->to(base_url('/admin/select_package'));
+
+                }else{
+                    $data['validation'] = $this->validator;
+                    return view('\Modules\LoginAuth\admin\login\register',$data);
                 }
-                ////
-                
-                $data = [
-                    'company_id' => $user_id,
-                ];
-                $update = $user_model->update($user_id,$data);
-                $users = $user_model->where('id',$user_id)->first();
-
-                
-                $notification= new Notificationmodel();
-
-                $getNotification = $notification->where('id', 6)->first();
-
-                $property_id=$this->session->get('rs_property_id');
-
-                
-                $source = ["{receiver_name}", "{app_name}"];
-                $dist = [$users['name'], "My Smart Property"];
-                $emailBody = str_replace($source, $dist, $getNotification['mailbody']);
-                
-                $email = $users['email'];
-
-                $check = rs_send_email($email, $getNotification['mailsub'], $emailBody);
-       
-                return redirect()->to(base_url('/admin/select_package'));
-				
             }else{
-                $data['validation'] = $this->validator;
-                return view('\Modules\LoginAuth\admin\login\register',$data);
-            }
-				}else{
                 return redirect()->back()->with('faild', 'Sorry! Email Already exists');
-
-        }
+            }
         }
 
 
@@ -476,7 +478,7 @@ class Admincontroller extends BaseController
 			$package_model = new Pakagemodel();
 			$package = $package_model->where('id',$package_id)->first();
 			if($package['property_limit'] == 1){
-				$datas['type']=1;  
+				$datas['type']=1;
 			}else{
 				$datas['type']=2;
 			}
@@ -521,18 +523,18 @@ class Admincontroller extends BaseController
         $user_id = $this->session->get('userId');
         $getUser = $user_model->where('id',$user_id)->first();
 
-        
+
 
         $data['package'] = $package_model->where('id',$getUser['package_id'])->first();
-        
-        
+
+
         return view('\Modules\LoginAuth\admin\login\success_payment',$data);
     }
     /**
      * End paymentMethodCheck
      */
 
-    
+
      /**
      * This method termAndCondition shows term and condition page in on registration time.
      * Method - get.
@@ -555,7 +557,7 @@ class Admincontroller extends BaseController
         $user_model = new User();
         $user_id = $this->session->get('userId');
         $getUser = $user_model->where('id',$user_id)->first();
-         
+
         $package_model = new Pakagemodel();
         $data['user_id'] = $getUser['id'];
         $data['packages'] = $package_model->where('status',1)->findall();
@@ -563,13 +565,13 @@ class Admincontroller extends BaseController
         // print_r($getUser);die();
         return view('\Modules\LoginAuth\admin\login\select_package',$data);
     }
-	
+
 	/*============================
                 Paypal
     ==============================*/
 	public function cancel_subscription($path){
 		////////////////////////////// GET TEMP ACCESS TOKEN/////////////////////////////////
-        
+
 		$ch = curl_init();
         $clientId = "ATkPii6sKXjdBuMtV_ZHeMVpgB9nHyj2Z1G3L4qZJHP5PntgTrawJOfRxWjt0KKvSr7uiQFZ-D2DHUxy";
         $secret = "EETN85e5-2C5xe9nK7ydhncZLJqKIrtIPR1xnQk3l_pDo4dBZ1xxpw-tfpl26iM6wlGj7jj9QoE8dAeG";
@@ -579,23 +581,23 @@ class Admincontroller extends BaseController
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_USERPWD, $clientId.":".$secret);
         curl_setopt($ch, CURLOPT_POSTFIELDS, "grant_type=client_credentials");
-		
+
         $result = curl_exec($ch);
-		
+
         if(empty($result))die("Error: No response.");
         else{
             $json = json_decode($result);
 			print_r($json->access_token);
             $myIDKEY = $json->access_token;
         }
-		
+
 		//echo "<pre>"; print_r($myIDKEY); die();
         curl_close($ch);
-		
-		
+
+
 		$access_token = $myIDKEY;
 
 		$ch = curl_init();
@@ -617,64 +619,64 @@ class Admincontroller extends BaseController
 		}
 
 		curl_close($ch);
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
         /*$ch = curl_init();
         $headers = [
-                    'Authorization: Bearer '.$myIDKEY, 
+                    'Authorization: Bearer '.$myIDKEY,
                     'Content-Type: application/json'
                 ];
         $postData = [
             'reason' => 'clicked cancel subscription button'
         ];
-		
+
         curl_setopt($ch, CURLOPT_URL, $path);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));           
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_exec ($ch);
-		
+
         curl_close($ch);*/
 	}
-	
-	
+
+
     public function no_debit_paypal_notify()
     {
 		/*$duration = 6;
 		$data = date('Y-m-d', time() + 30 * $duration * 24 * 3600);
 		echo "<pre>"; print_r($data); die();*/
-		
+
 		$payment_model = new Paymentmodel();
         $user_model = new User();
 
         $file = 'paypal/paypal_'.time().rand(9,9999).'.txt';
         $x = serialize($_POST);
-		
+
         file_put_contents($file,$x);
         $y = unserialize($x);
 		$custom = explode(',',$y['custom']);
-		
+
 		$package_id = $custom[0];
         $owner_id = $custom[1];
 		$duration = $custom[2];
-		
+
 		$paymentsinfo = $payment_model->where(['owner_id'=>$owner_id,'payment_by'=>'paypal'])->findAll();
-        if($paymentsinfo){    
+        if($paymentsinfo){
             foreach($paymentsinfo as $paymentinfo){
 				//$path = "https://api.paypal.com/v1/billing/subscriptions/".$paymentinfo['subscription_id']."/cancel";
                 $path = "https://api.sandbox.paypal.com/v1/billing/subscriptions/".$paymentinfo['subscription_id']."/cancel";
                 $this->cancel_subscription($path);
             }
         }
-		
+
 		//echo "<pre>"; print_r($package_id); die();
-		
+
         $data['amount'] = $y['mc_gross'];
 		$data['owner_id'] = $owner_id;
 		$data['transaction_id'] = $y['txn_id'];
@@ -703,6 +705,6 @@ class Admincontroller extends BaseController
 
         return redirect()->to(base_url('/admin/success_payment'))->with('success', 'Payment Successfuly !!');
     }
-	
+
 
 }

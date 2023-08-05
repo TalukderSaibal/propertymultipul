@@ -1,13 +1,13 @@
 <?php
-    echo $this->include('\Modules\Master\Views\header_login'); 
+    echo $this->include('\Modules\Master\Views\header_login');
     $theme = session()->get('themevalue');
- ?>
+?>
     <div class="loginpage">
         <div class="container-fluid p-0">
             <div class="row g-0">
                 <div class="col-md-6">
                     <div class="row justify-content-center align-items-center <?php if (isset($theme) && ($theme == 1)) { ?> bg-white <?php } else{?> bg-lightnew <?php } ?> py-5 h-100 ">
-                        <div class="col-md-8"> 
+                        <div class="col-md-8">
                             <div class="text-center mb-4">
                                 <a href="<?php echo base_url() ?>" class="">
                                     <img src="<?php echo base_url() ?>/admin/assets/images/logo.png" alt="" height="44" class="auth-logo logo-dark mx-auto">
@@ -25,7 +25,7 @@
                                 echo '<div class="alert alert-danger text-center">' . $error . '</div>';
                             }
                             ?>
-                            <?php 
+                            <?php
                             if(session()->getFlashdata('success')){
                                 echo "<h4 style='color:green;text-align:center;'>".session()->getFlashdata('success')."</h4>";
                             }
@@ -69,7 +69,7 @@
                                                     <a href="<?=base_url('/forgot_pass');?>" class="text-muted"><i class="mdi mdi-lock"></i> Forgot your Password?</a>
                                                 </div>
                                             </div>
-                                           
+
                                         </div>
                                         <div class="d-grid mt-4">
                                             <button class="btn btn-primary waves-effect waves-light" type="submit">Log In</button>
@@ -82,9 +82,9 @@
                                 <p class="">© <script>
                                         document.write(new Date().getFullYear())
                                     </script> Property Management. Crafted with <i class="mdi mdi-heart text-danger"></i> by <b>RS Software</b></p>
-                            </div> 
+                            </div>
                         </div>
-                
+
                     </div>
                 </div>
                 <div class="col-md-6">
