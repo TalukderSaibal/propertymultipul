@@ -4,6 +4,8 @@
     $routes->add('/', '\Modules\LoginAuth\Controllers\Admincontroller::index', ['as' => '/']);
     $routes->add('login', '\Modules\LoginAuth\Controllers\Admincontroller::login', ['as' => 'login']);
 
+    // $routes->add('rent', '\Modules\LoginAuth\Controllers\Admincontroller::rent', ['as' => 'rent']);
+
     $routes->add('forgot_pass', '\Modules\LoginAuth\Controllers\Admincontroller::forgotPass', ['as' => 'forgot_pass']);
     $routes->add('reset_pass/(:any)', '\Modules\LoginAuth\Controllers\Admincontroller::resetPass/$1', ['as' => 'reset_pass']);
     $routes->match(['get', 'post'],'register', '\Modules\LoginAuth\Controllers\Admincontroller::register', ['as' => 'register']);

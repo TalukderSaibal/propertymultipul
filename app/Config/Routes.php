@@ -23,6 +23,9 @@ $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(true);
 
+
+$routes->add('rent', '\Modules\LoginAuth\Controllers\Admincontroller::rent', ['as' => 'rent']);
+
 /*
  * --------------------------------------------------------------------
  * Route Definitions
@@ -40,18 +43,18 @@ $routes->setAutoRoute(true);
 //     $routes->get('account_mode', 'Popertycontroller::index', ['as' => 'account_mode']);
 //     $routes->match(['get', 'post'],'poperty_list/(:any)', 'Popertycontroller::popertyList/$1', ['as' => 'poperty_list']);
 //     $routes->add('poperty_add/(:any)', 'Popertycontroller::popertyAdd/$1', ['as' => 'poperty_add']);
- 
+
 //     //multiple image upload
 //     $routes->post('poperty_images', 'Popertycontroller::multipleImageUpload', ['as' => 'poperty_images']);
-    
+
 //     $routes->get('home/(:any)', 'Dashboardcontroller::/$1', ['as' => 'home']);
     //$routes->get('logout', 'Admincontroller::adminLogout', ['as' => 'adminLogout']);
-    
+
 // });
 
     // $routes->group('admin', ['filter' => 'Useraccess'], function ($routes) {
-    
-    //$routes->get('/', 'Dashboard::index', ['filter' => ['auth', 'second_filter']]); 
+
+    //$routes->get('/', 'Dashboard::index', ['filter' => ['auth', 'second_filter']]);
     //floor section
     // $routes->get('floor_list/(:any)', 'Floorcontroller::index/$1', ['as' => 'floor_list']);
     // $routes->get('floor_list', 'Floorcontroller::index', ['as' => 'floor_list_new']);
@@ -64,7 +67,7 @@ $routes->setAutoRoute(true);
     // $routes->add('unit_add', 'Unitcontroller::unitAdd', ['as' => 'unit_add']);
     // $routes->add('unit_edit/(:any)', 'Unitcontroller::unitEdit/$1', ['as' => 'unit_edit']);
     // $routes->get('unit_delete/(:any)', 'Unitcontroller::unitDelete/$1', ['as' => 'unit_delete']);
-    
+
     //Tenant section
     // $routes->get('tenant_list/(:any)', 'Tenantcontroller::index/$1', ['as' => 'tenant_list']);
     // $routes->get('tenant_list', 'Tenantcontroller::index', ['as' => 'tenant_list_new']);
@@ -81,14 +84,14 @@ $routes->setAutoRoute(true);
     // $routes->post('maintenance_view', 'Maintenancecontroller::maintenanceView', ['as' => 'maintenance_view']);
     // $routes->add('maintenance_edit/(:any)', 'Maintenancecontroller::maintenanceEdit/$1', ['as' => 'maintenance_edit']);
     // $routes->get('maintenance_delete/(:any)', 'Maintenancecontroller::maintenanceDelete/$1', ['as' => 'maintenance_delete']);
-    
+
     //Management committee section
     // $routes->get('committee_list', 'Committeecontroller::index', ['as' => 'committee_list']);
     // $routes->add('committee_add', 'Committeecontroller::committeeAdd', ['as' => 'committee_add']);
     // $routes->post('committee_view', 'Committeecontroller::committeeView', ['as' => 'committee_view']);
     // $routes->add('committee_edit/(:any)', 'Committeecontroller::committeeEdit/$1', ['as' => 'committee_edit']);
     // $routes->get('committee_delete/(:any)', 'Committeecontroller::committeeDelete/$1', ['as' => 'committee_delete']);
-    
+
 
     //Visitor section
     // $routes->get('visitor_list', 'Visitorcontroller::index', ['as' => 'visitor_list']);
@@ -149,7 +152,7 @@ $routes->setAutoRoute(true);
     // $routes->match(['get', 'post'],'fundstatus', 'Reportcontroller::fund_status', ['as' => 'fund_status']);
     // $routes->match(['get', 'post'],'rentinfo', 'Reportcontroller::rent_info', ['as' => 'rent_info']);
     // $routes->get('fundstatus_pdf', 'Reportcontroller::fundStatusPdf', ['as' => 'fundstatus_pdf']);
-   
+
     // //bill report
     // $routes->match(['get', 'post'],'billreport', 'Reportcontroller::bill_report', ['as' => 'bill_report']);
     // $routes->match(['get', 'post'],'billinfo', 'Reportcontroller::bill_info', ['as' => 'bill_info']);
@@ -159,7 +162,7 @@ $routes->setAutoRoute(true);
     // $routes->match(['get', 'post'],'salaryreport', 'Reportcontroller::salary_report', ['as' => 'salary_report']);
     // $routes->match(['get', 'post'],'salaryinfo', 'Reportcontroller::salary_info', ['as' => 'salary_info']);
     // $routes->get('salaryinfo_pdf', 'Reportcontroller::salaryInfoPdf', ['as' => 'salaryinfo_pdf']);
-   
+
     // //report print
     // $routes->match(['get', 'post'],'printsalaryreport','Reportcontroller::print_salary_report', ['as' => 'print_salary_report']);
     // $routes->match(['get', 'post'],'printrentreport','Reportcontroller::print_rent_report', ['as' => 'print_rent_report']);
@@ -200,7 +203,7 @@ $routes->setAutoRoute(true);
     // $routes->get('mailsms_delete/(:any)', 'Mailsmscontroller::mailsmsDelete/$1', ['as' => 'mailsms_delete']);
 
 
-   
+
 
     /////// shukriti/////
     // Owner
@@ -212,7 +215,7 @@ $routes->setAutoRoute(true);
 
     // Owner Utility
     // $routes->match(['get', 'post'],'ownerutilityadd', 'Ownercontroller::owner_utility_add', ['as' => 'owner_utility_add']);
-    // $routes->match(['get', 'post'],'getunits', 'Ownercontroller::get_units_by_floor', ['as' => 'get_units_by_floor']);  
+    // $routes->match(['get', 'post'],'getunits', 'Ownercontroller::get_units_by_floor', ['as' => 'get_units_by_floor']);
     // $routes->match(['get', 'post'],'getowner', 'Ownercontroller::get_owner_by_unit', ['as' => 'get_owner_by_unit']);
     // $routes->match(['get', 'post'],'ownerutilitylist', 'Ownercontroller::owner_utility_list', ['as' => 'owner_utility_list']);
     // $routes->match(['get', 'post'],'ownerutilityupdate/(:num)', 'Ownercontroller::owner_utility_update/$1', ['as' => 'owner_utility_update']);
@@ -268,7 +271,7 @@ $routes->setAutoRoute(true);
     // $routes->match(['get', 'post'],'indivusualrent', 'Rentcontroller::indivusual_rent', ['as' => 'indivusual_rent']);
     // $routes->match(['get', 'post'],'printrentinvoice', 'Rentcontroller::print_rent_invoice', ['as' => 'print_rent_invoice']);
 
-    
+
 
     // Settings
     // Users
@@ -277,11 +280,11 @@ $routes->setAutoRoute(true);
     // $routes->match(['get', 'post'],'userdelete/(:num)', 'Usercontroller::user_delete/$1', ['as' => 'user_delete']);
     // $routes->match(['get', 'post'],'indivusualuser', 'Usercontroller::indivusual_user', ['as' => 'indivusual_user']);
 
-    
+
     // $routes->match(['get', 'post'],'yearsetup', 'Settingcontroller::year_setup', ['as' => 'year_setup']);
     // $routes->match(['get', 'post'],'yearupdate/(:num)', 'Settingcontroller::year_update/$1', ['as' => 'year_update']);
     // $routes->match(['get', 'post'],'yeardelete/(:num)', 'Settingcontroller::year_delete/$1', ['as' => 'year_delete']);
-    
+
 
     // $routes->match(['get', 'post'],'currencysetup', 'Settingcontroller::currency_setup', ['as' => 'currency_setup']);
     // $routes->match(['get', 'post'],'currencyupdate/(:num)', 'Settingcontroller::currency_update/$1', ['as' => 'currency_update']);
@@ -300,8 +303,8 @@ $routes->setAutoRoute(true);
     // $routes->match(['get', 'post'],'roledelete/(:num)','Settingcontroller::role_delete/$1', ['as' => 'role_delete']);
     // $routes->match(['get', 'post'],'rolelist','Settingcontroller::role_list', ['as' => 'role_list']);
     // $routes->match(['get', 'post'],'view_access','Settingcontroller::view_access', ['as' => 'view_access']);
-    
-    // Home 
+
+    // Home
     // $routes->match(['get', 'post'],'visitordetails/(:num)','Dashboardcontroller::visitor_details/$1', ['as' => 'visitor_details']);
     // $routes->match(['get', 'post'],'complaindetails/(:num)','Dashboardcontroller::complain_details/$1', ['as' => 'complain_details']);
 // });

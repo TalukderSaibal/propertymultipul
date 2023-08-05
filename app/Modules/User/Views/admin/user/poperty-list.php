@@ -63,12 +63,14 @@
 
             <div class="col-md-4">
                 <div class="card overflow-hidden border-radius-20">
+
                     <div class="property_content" style="background: url(<?php echo base_url();?>/uploads/<?=$property['image']?>) no-repeat;">
 
                         <div class="property_heading">
                             <h3 class="d-flex align-items-center"><i class=" ri-building-4-line"></i> <?=$property['propertyname'];?></h3>
                             <p><i class=" ri-map-pin-line"></i> <?=$property['streetads'].$property['city'];?></p>
                         </div>
+
                     </div>
 
                     <div class="card-body">
@@ -143,7 +145,7 @@
                         </div>
                         <hr>
                         <div class="text-end">
-                            <a class="btn btn-primary rounded-pill px-4" href="<?= base_url('admin/home/'.$property['id']) ?>"> <?php echo lang('Property.pro_view'); ?> </a>
+                            <a class="btn btn-primary rounded-pill px-4" href="<?= base_url('admin/home/'.$property['id']) ?>"><?php echo lang('Property.pro_view'); ?></a>
                         </div>
                     </div>
                 </div>

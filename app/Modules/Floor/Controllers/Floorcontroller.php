@@ -11,16 +11,15 @@ class Floorcontroller extends BaseController
      * This method index shows Floor list of a property.
      * Method - get
      */
-    public function index($pro_id='')
-    {
+    public function index($pro_id=''){
         if(!empty($pro_id) && is_numeric($pro_id)){
             $this->session->set('rs_property_id',$pro_id);
-          
+
             if(valid_user($pro_id)==false){
                 return redirect()->back();
             }
-            
-              
+
+
         }
         $property_id=$this->session->get('rs_property_id');
 
@@ -32,21 +31,21 @@ class Floorcontroller extends BaseController
         ]);
     }
     /**
-     *  End index 
+     *  End index
      */
 
 
-     /**
+    /**
      * This method floorAdd saves floor information of a property to database.
      * Method - get & post
      * Validates - floorValidate
-     */
+    */
 
-    public function floorAdd()
-    {
-        $property_id=$this->session->get('rs_property_id');
-        $floor = new Floormodel();
-        $data = array();
+    public function floorAdd(){
+        $property_id = $this->session->get('rs_property_id');
+        $floor       = new Floormodel();
+        $data        = array();
+
         if ($this->request->getMethod() == 'post') {
             if (!$this->validate('floorValidate')) {
                 $data['validation'] = $this->validator;
@@ -56,14 +55,14 @@ class Floorcontroller extends BaseController
                     'property_id'=>$property_id
                 ];
                 $floor->insert($floorAdd);
-                $data['getFloors']= $floor->where('property_id',$property_id)->findall(); 
+                $data['getFloors']= $floor->where('property_id',$property_id)->findall();
                 return view('Modules\Floor\Views\admin\floor\floor-list',$data);
             }
         }
         return view('Modules\Floor\Views\admin\floor\floor-add', $data);
     }
     /**
-     *  End floorAdd 
+     *  End floorAdd
      */
 
 
@@ -88,7 +87,7 @@ class Floorcontroller extends BaseController
                     'floorno' => $this->request->getVar('floor_no')
                 ];
                 $floor->update($id, $florUpdate);
-                $data['getFloors']= $floor->where('property_id',$property_id)->findall(); 
+                $data['getFloors']= $floor->where('property_id',$property_id)->findall();
                 return view('Modules\Floor\Views\admin\floor\floor-list',$data);
             }
         }
@@ -98,30 +97,30 @@ class Floorcontroller extends BaseController
         }else{
             return view('\Modules\Home\Views\admin\home\property_error_page');
         }
-        
+
     }
     /**
-     *  End floorAdd 
+     *  End floorAdd
      */
 
 
      /**
      * This method floorDelete deletes all data funding details of a property.
-     * Method - get 
+     * Method - get
      * It has a perameter row id known as "$id" used for which row will delete.
      */
     public function floorDelete($id)
     {
         $property_id=$this->session->get('rs_property_id');
-        
+
         $floor = new Floormodel();
 
         $floor->delete($id);
 
-        $data['getFloors']= $floor->where('property_id',$property_id)->findall(); 
+        $data['getFloors']= $floor->where('property_id',$property_id)->findall();
         return view('Modules\Floor\Views\admin\floor\floor-list',$data);
     }
     /**
-     *  End floorAdd 
+     *  End floorAdd
      */
 }

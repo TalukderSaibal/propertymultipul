@@ -28,6 +28,18 @@ class Admincontroller extends BaseController
         return view('\Modules\LoginAuth\admin\login\theme_chose');
     }
 
+
+    public function rent(){
+        if($this->request->getMethod() == 'post'){
+            $floor_name = $this->request->getVar('floor_name');
+            $unit_no    = $this->request->getVar('unit_no');
+            return $floor_name;
+        }
+
+        $a = 'I am Saikat';
+        return $a;
+    }
+
     public function login(){
         $user = new User();
 
@@ -351,12 +363,12 @@ class Admincontroller extends BaseController
                     $getUser = $user_model->where('id',$user_id)->first();
                     if ($getUser) {
                         $session_data = [
-                            'userId' => $getUser['id'],
-                            'name' => $getUser['name'],
-                            'type' => $getUser['type'],
-                            'user_type' => $getUser['user_type'],
+                            'userId'     => $getUser['id'],
+                            'name'       => $getUser['name'],
+                            'type'       => $getUser['type'],
+                            'user_type'  => $getUser['user_type'],
                             'isLoggedIn' => true,
-                            'by_login' => "yes",
+                            'by_login'   => "yes",
                         ];
                         $this->session->set($session_data);
 
@@ -401,6 +413,10 @@ class Admincontroller extends BaseController
 
         return view('\Modules\LoginAuth\admin\login\register',$data);
     }
+
+
+
+
     /**
      * End register
      */
