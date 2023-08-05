@@ -9,7 +9,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesdesign" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="admin/assets/images/favicon.ico">
 
 
     <script src="<?php echo base_url() ?>/admin/assets/libs/jquery/jquery.min.js"></script>
@@ -20,7 +20,7 @@
     <!-- Responsive datatable examples -->
     <link href="<?php echo base_url() ?>/admin/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
-    <!-- Bootstrap Css --> 
+    <!-- Bootstrap Css -->
     <?php $theme = session()->get('themevalue'); if (isset($theme) && ($theme == 1)) { ?>
     <link href="<?php echo base_url() ?>/admin/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <?php } else{?>
@@ -55,25 +55,25 @@
 </head>
 
 <!-- <body data-sidebar="dark"> -->
-<?php 
- 
+<?php
+
  if (isset($theme) && ($theme == 1)) { ?>
    <body class="sidebar-enable vertical-collpsed">
 <?php } else{?>
-   <body class="sidebar-enable vertical-collpsed" data-topbar="dark"> 
+   <body class="sidebar-enable vertical-collpsed" data-topbar="dark">
 <?php } ?>
 
- 
+
     <!-- Begin page -->
     <div id="layout-wrapper">
 
 
         <!---------Top Bar--------------->
-      
+
         <header id="page-topbar">
             <div class="navbar-header">
             <?php  $notify_data= notification();?>
-               
+
                 <?php $user=user_details();?>
                 <div class="d-flex">
                     <!-- LOGO -->
@@ -100,7 +100,7 @@
                             </span>
                         </a>
                     </div>
-                    
+
                     <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect" id="vertical-menu-btn">
                         <i class="ri-menu-2-line align-middle"></i>
                     </button>
@@ -134,7 +134,7 @@
                         <form action="<?= base_url('admin/home/'.$property_id) ?>" method="post">
                              <button type="submit" class="btn header-item noti-icon show_dark_light"> <i class="ri-moon-fill"></i> <i class="ri-sun-line"></i></button>
                         </form>
-                      
+
                     </div>
                     <div class="dropdown d-none d-sm-inline-block">
                         <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -193,10 +193,10 @@
                                 </div>
                             </div>
                             <div data-simplebar style="max-height: 230px;">
-                              <?php 
+                              <?php
                               $limit=2;
                               $m=1;
-                                 foreach($notify_data as $notify){ 
+                                 foreach($notify_data as $notify){
                                      if($m<=$limit){
                                      ?>
 
@@ -220,7 +220,7 @@
                                     </div>
                                 </a></div>
                                 <?php } $m++; }?>
-                                
+
                             </div>
                             <div class="p-2 border-top">
                                 <div class="d-grid">
@@ -247,7 +247,7 @@
                             <a class="dropdown-item" href="<?=base_url('admin/account_mode');?>"><i class="ri-wallet-2-line align-middle me-1"></i> My Poperty</a>
                             <a class="dropdown-item d-block" href="<?=base_url('admin/roleadd');?>"><span class="badge bg-success float-end mt-1">11</span><i class="ri-settings-2-line align-middle me-1"></i> Settings</a>
                             <a class="dropdown-item d-block" href="<?=base_url('admin/mypackage');?>"><i class="ri-exchange-dollar-fill align-middle me-1"></i> My Package</a>
-                            
+
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href="<?php echo base_url() ?>/admin/logout">
                                 <i class="ri-shut-down-line align-middle me-1 text-danger"></i> Logout</a>
@@ -259,15 +259,15 @@
                 </div>
             </div>
         <script>
-           
+
             var limit =2;
             var total=0;
           $("#noti_view_more").click(function(){
-   
+
             var total = $("#increment").val();
              var limit = parseInt(total)+5;
              $("#increment").val(limit);
-              
+
             $.ajax({
 				url: "<?php echo base_url('admin/get_notification'); ?>",
 				method: "POST",
@@ -275,18 +275,18 @@
 				success: function(data) {
 
                 var html='';
-                
+
 
                 for(k=0;k<data.length;k++){
-                    
+
                     if(k<=limit){
                     var issue_name =data[k].issue_name;
-                
+
                     html += '<a href="" class="text-reset notification-item"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar-xs"><span class="avatar-title bg-primary rounded-circle font-size-16"><i class="ri-notification-3-line"></i></span></div></div><div class="flex-grow-1"><h5 class="mb-1">'+data[k].issue_name+' Issue</h5><h6 class="mb-1">'+data[k].comtitle+' Issue</h6><div class="font-size-12 text-muted"><p class="mb-1">'+data[k].comdescription+'</p><!-- <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 3 min ago</p> --></div></div></div></a>';
                 }}
                 $('#add_more').html(html);
             }
-            }); 
+            });
           });
         </script>
         </header>

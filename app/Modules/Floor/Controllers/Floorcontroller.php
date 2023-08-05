@@ -75,8 +75,7 @@ class Floorcontroller extends BaseController
      * Validates - floorValidate
      * It has a perameter row id known as "$id" used for which row will edit.
      */
-    public function floorEdit($id)
-    {
+    public function floorEdit($id){
         $property_id=$this->session->get('rs_property_id');
         $floor = new Floormodel();
         $data['floorInfo'] = $floor->where(['id' => $id,'property_id'=>$property_id])->first();
@@ -107,7 +106,7 @@ class Floorcontroller extends BaseController
      */
 
 
-     /**
+    /**
      * This method floorDelete deletes all data funding details of a property.
      * Method - get
      * It has a perameter row id known as "$id" used for which row will delete.

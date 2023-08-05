@@ -102,7 +102,7 @@
                             <span>Demo Module</span>
                         </a>
                         <ul class="sub-menu1" aria-expanded="false">
-                            <li><a href="<?php echo base_url(''); ?>">Demo List</a></li>
+                            <li><a href="<?php echo base_url(''); ?>/admin/demo_list">Demo List</a></li>
                             <li><a href="<?php echo base_url() ?>/admin/demo_add">Add Demo</a></li>
                         </ul>
                     </li>
