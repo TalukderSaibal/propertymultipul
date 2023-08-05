@@ -50,12 +50,15 @@ class Floorcontroller extends BaseController
             if (!$this->validate('floorValidate')) {
                 $data['validation'] = $this->validator;
             } else {
+
                 $floorAdd = [
                     'floorno' => $this->request->getVar('floor_no'),
                     'property_id'=>$property_id
                 ];
+
                 $floor->insert($floorAdd);
                 $data['getFloors']= $floor->where('property_id',$property_id)->findall();
+
                 return view('Modules\Floor\Views\admin\floor\floor-list',$data);
             }
         }

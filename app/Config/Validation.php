@@ -147,6 +147,17 @@ class Validation
             ],
         ],
     ];
+
+    public $demoValidate = [
+        'demo' => [
+            'label'  => 'Demo No',
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Demo No Is Required',
+            ],
+        ],
+    ];
+
     public $unitValidate = [
         'floor_id' => [
             'label'  => 'Floor',
@@ -572,7 +583,7 @@ class Validation
         ],
     ];
 
-    ////////// shukriti 
+    ////////// shukriti
 
     public $owner = [
         'name'       => 'required|min_length[1]|max_length[40]',
@@ -1041,7 +1052,7 @@ class Validation
         'userpassword'       => 'required|min_length[8]',
         'confirm_pass'       => 'required|min_length[8]',
         'term_and_condition'       => 'required',
-        
+
     ];
     public $register_errors = [
         'username' => [
@@ -1061,7 +1072,7 @@ class Validation
         'term_and_condition' => [
             'required'   => 'Sorry! Term and Condition is required.'
         ],
-        
+
 
     ];
 
@@ -1163,7 +1174,7 @@ class Validation
         'confirm_pass'       => 'required|min_length[8]',
         'user_type'       => 'required',
         'package_id'       => 'required',
-        
+
     ];
     public $useradd_errors = [
         'username' => [
